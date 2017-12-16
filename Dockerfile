@@ -60,7 +60,7 @@ RUN apt update && \
 RUN pip3 install --no-cache-dir --upgrade tensorflow==1.2.1 tqdm && \
     wget http://www.cs.cmu.edu/~yuntiand/Distance-0.1.3.tar.gz && \
     tar zxf Distance-0.1.3.tar.gz && \
-    cd distance && python setup.py install && \
+    cd distance && python3 setup.py install && \
     cd / && rm Distance-0.1.3.tar.gz && rm -rf distance
 
 #
