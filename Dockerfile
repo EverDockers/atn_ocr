@@ -71,7 +71,7 @@ RUN pip3 install --no-cache-dir --upgrade Pillow \
     #
     tensorflow==1.2.1 \
     # tqdm
-    tqdm \
+    tqdm && \
     # Distance
     wget http://www.cs.cmu.edu/~yuntiand/Distance-0.1.3.tar.gz && \
     tar zxf Distance-0.1.3.tar.gz && \
