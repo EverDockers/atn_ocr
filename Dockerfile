@@ -29,7 +29,7 @@ ENV LC_ALL en_US.UTF-8
 RUN apt update && \
     apt install -y --no-install-recommends apt-utils \
     # Developer Essentials
-    git curl vim unzip wget && \
+    git curl vim unzip wget \
     #
     #
     #
