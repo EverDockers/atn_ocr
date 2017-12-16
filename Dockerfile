@@ -62,16 +62,16 @@ RUN apt update && \
 #
 # common libs
 #
-RUN pip3 --no-cache-dir --upgrade install Pillow \
+RUN pip3 install --no-cache-dir Pillow \
     # Common libraries
     numpy scipy sklearn scikit-image pandas matplotlib \
+    # tqdm
+    tqdm && \
     #
     # Prerequsites
     # Tensorflow 1.2.1 - CPU
     #
-    tensorflow==1.2.1 \
-    # tqdm
-    tqdm && \
+    pip3 install --no-cache-dir --upgrade tensorflow==1.2.1 \
     # Distance
     wget http://www.cs.cmu.edu/~yuntiand/Distance-0.1.3.tar.gz && \
     tar zxf Distance-0.1.3.tar.gz && \
