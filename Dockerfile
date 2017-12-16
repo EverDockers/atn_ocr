@@ -1,8 +1,31 @@
 FROM ubuntu:16.04
 MAINTAINER Baker Wang <baikangwang@hotmail.com>
 
-#usage: docker run -it -v projects:/projects -p 6006:6006 baikangwang/tensorflow_cpu:tfonly2
+#usage: docker run -it -v projects:/projects -p 6006:6006 baikangwang/tensorflow_cpu:tfonly
 
+#
+# Set the locale
+#
+# https://stackoverflow.com/questions/28405902/how-to-set-the-locale-inside-a-docker-container
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y locales && \
+    #
+    # Cleanup
+    #
+    apt clean && \
+    apt autoremove && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=en_US.UTF-8
+
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8
+
+#
+# initial
+#
 RUN apt update && \
     apt install -y --no-install-recommends apt-utils \
     # Developer Essentials
@@ -14,11 +37,13 @@ RUN apt update && \
     apt autoremove && \
     rm -rf /var/lib/apt/lists/*
 #
-# Python 2.7
+# Python 3.5
 #
 RUN apt update && \
-    apt install -y --no-install-recommends python2.7 python-dev python-pip && \
-    pip install --no-cache-dir --upgrade pip setuptools && \
+    apt install -y --no-install-recommends python3.5 python3.5-dev python3-pip && \
+    pip3 install --no-cache-dir --upgrade pip setuptools && \
+    echo "alias python='python3'" >> /root/.bash_aliases && \
+    echo "alias pip='pip3'" >> /root/.bash_aliases && \
     #
     # Cleanup
     #
@@ -32,7 +57,7 @@ RUN apt update && \
 # tqdm
 # Distance
 #
-RUN pip install --no-cache-dir --upgrade tensorflow==1.2.1 tqdm && \
+RUN pip3 install --no-cache-dir --upgrade tensorflow==1.2.1 tqdm && \
     wget http://www.cs.cmu.edu/~yuntiand/Distance-0.1.3.tar.gz && \
     tar zxf Distance-0.1.3.tar.gz && \
     cd distance && python setup.py install && \
