@@ -82,7 +82,7 @@ RUN pip3 install --no-cache-dir --upgrade Pillow \
     # Prerequsites
     # Tensorflow 1.2.1 - CPU
     #
-    tensorflow-gpu=1.2.1 \
+    tensorflow-gpu==1.2.1 \
     # tqdm
     tqdm && \
     # Distance
